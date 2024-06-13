@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Teacher Profiles
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Teacher Profiles</h1>
+    <div class="row justify-content-center"> <!-- justify-content-center class qo'shildi -->
+        {% for ustoz in ustozlar %}
+            <div class="col-md-8 mb-4">
+                <div class="animate__animated animate__fadeInUp">
+                    <div class="header text-center">
+                        <img src="{{ ustoz.picture.url }}" class="teacher-img" alt="{{ ustoz.first_name }} {{ ustoz.last_name }}">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h1 class="text-center my-4">Latest Students</h1>
+    <div class="row justify-content-center"> <!-- justify-content-center class qo'shildi -->
+        {% for student in latest_btr %}
+            <div class="col-md-4 mb-4">
+                <div class="student-card shadow-lg h-100 animate__animated animate__fadeInUp">
+                    <img src="{{ student.image.url }}" class="student-img" alt="{{ student.name }}">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+    body {
+        font-family: 'Special Elite', cursive;
+        background: url("{% static 'd.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+        color: #fff;
+    }
+
+    h1 {
+        color: #ffffff;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    .teacher-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .teacher-img {
+        height: 550px;
+        width: 80%; /* Full width for better responsiveness */
+        object-fit: cover;
+        border-radius: 5%;
+        display: block; /* Ensures the image is a block element */
+        margin: 0 auto; /* Centers the image horizontally */
+    }
+
+    .student-card {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        color: white;
+        height: 600px; /* Increased the height to make the card bigger */
+        background: url("{% static 'w2.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .student-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .student-img {
+        width: 98%;
+        height: 309px; /* Ensure the image covers the full height of the card */
+        object-fit: cover;
+        margin-top: 99px;
+        margin-left: 5px;
+        margin-bottom: 99px;
+        border-radius: 15px;
+    }
+
+    .card-title {
+        font-size: 1.75rem;
+        color: #ffffff;
+        margin-left: 30px;
+    }
+
+    .card-text {
+        font-size: 1.5rem;
+        color: #ffffff;
+    }
+</style>
+{% endblock %}

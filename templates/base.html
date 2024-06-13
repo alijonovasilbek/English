@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Video Courses{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+    <style>
+        body {
+             font-family: 'Special Elite', cursive;
+
+            background-color: #eaeaea;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+
+        }
+        .content {
+            flex: 1;
+            padding: 10px 0;
+        }
+        footer {
+            background: #d3d3d3;
+            color: #212529;
+            padding: 40px 0;
+            text-align: center;
+        }
+        footer a {
+            color: #212529;
+            text-decoration: none;
+             font-size: 1.5rem;
+        }
+         footer p {
+           font-size: 1.25rem;
+         }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+.hero {
+  background-repeat: no-repeat;
+  background-size:cover; /* Ensure the image is not distorted or stretched */
+  background-position: center; /* Center the background image */
+  min-height: 100vh; /* Make the hero section take up the full screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+  margin-bottom: 0; /* Remove margin bottom */
+  padding: 90px 5px; /* Add padding top and bottom */
+}
+
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            animation: fadeInUp 2s ease-out;
+        }
+        .hero-content a {
+            animation: fadeInUp 2.5s ease-out;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Remove bottom margin from the navbar */
+.navbar {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Remove top margin from the hero section */
+.hero {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Ensure body margin is also removed */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+        .navbar-brand {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-right: 5px; /* Adjusted to add margin on the right */
+            margin-left: 40px; /* Ensure no margin on the left */
+        }
+        .navbar-nav .nav-link {
+            font-size: 1.7rem;
+            margin-left: 10px;
+            transition: color 0.3s;
+                color: #fff;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #fff; /* Change link color on hover */
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-toggler-icon {
+            background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba(0, 0, 0, 0.7)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22" /%3E%3C/svg%3E');
+        }
+        .medium-developers {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .medium-developers h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .medium-developers p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+  
+        .categories {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+        }
+        .categories h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .categories .category {
+            text-align: center;
+            padding: 20px;
+            transition: background-color 0.3s;
+        }
+        .categories .category:hover {
+            background-color: #ececec;
+        }
+        .menu-image {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid"> <!-- Changed from container to container-fluid -->
+            <a class="navbar-brand" href="{% url 'main' %}">MAKHTEACH</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'category_list' %}">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news_list' %}">Blog</a>
+                    </li>
+                  <li class="nav-item">
+                        <a style="color:#6E33FF;" class="nav-link" href="#why-we-section">Why?</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ustoz_list' %}">Teachers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'room_list' %}">Group</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-link btn btn-link" style="padding: 0; margin-top: 6px; border: none; background: #ffffff;">Logout</button>
+                            </form>
+                        </li>
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'admin' %}">Admin</a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block footer %}
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Goal!</h5>
+                    <p> Our goal is to help teens rock the IELTS exam using Sherlock Holmes' clever tricks! We want you to:
+                        Get really good at English (listening, reading, writing, and speaking).
+                        Think like a detective: observe, analyze, and solve problems.
+                        Get personalized tips to improve where you need it.
+                        Have a blast while learning!
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Links</h5>
+                     <ul class="list-unstyled">
+                        <li><a href="{% url 'main' %}" class="text-dark">Home</a></li>
+                        <li><a href="{% url 'category_list' %}" class="text-dark">Courses</a></li>
+                        <li><a href="{% url 'news_list' %}" class="text-dark">Blog</a></li>
+                        <li><a href="{% url 'ustoz_list' %}" class="text-dark">Teachers</a></li>
+                        <li><a href="{% url 'room_list' %}" class="text-dark">Group</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-0" style="padding:10px">Follow Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#!" class="text-dark"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                        <li><a href="#!" class="text-dark"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#!" class="text-dark"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#!" class="text-dark"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3">
+            © 2024 VideoCourses. All rights reserved.
+        </div>
+    </footer>
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+
+        var photos = [
+
+            "{% static 't2t.jpg' %}",
+            "{% static 'k.jpg' %}"
+        ];
+
+        function getRandomPhoto() {
+            return photos[Math.floor(Math.random() * photos.length)];
+        }
+
+        function changeBackground() {
+            var hero = document.getElementById('hero');
+            hero.style.backgroundImage = 'url(' + getRandomPhoto() + ')';
+        }
+
+        window.onload = changeBackground;
+    </script>
+</body>
+</html>

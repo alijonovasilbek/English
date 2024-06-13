@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Admin uchun
+{% endblock %}
+
+{% block content %}
+<style>
+    bodyl {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5; /* Fona rang */
+        animation: fadeIn 0.5s ease-in-out; /* Fade animatsiyasi */
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    #container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff; /* Konteyner fona rang */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #messages {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .message {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f0f0f0; /* Xabar fona rang */
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        animation: slideIn 0.5s ease-in-out; /* Slide animatsiyasi */
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .message p {
+        margin: 0;
+        color: #333;
+    }
+
+    .message img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    form {
+        margin-top: 20px;
+        background-color: #fff; /* Forma fona rang */
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-in-out; /* Fade animatsiyasi */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    input[type="file"] {
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff; /* Yuborish tugmasi fona rang */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3; /* Yuborish tugmasi fona rang (hover holatida) */
+    }
+</style>
+<bodyl>
+<div id="container">
+    <h1>{{ room.name }}</h1>
+    <div id="messages">
+        {% for message in messages %}
+        <div class="message">
+            <p>{{ message.user.username }}:</p>
+            <p>{{ message.content }}</p>
+            {% if message.image %}
+            <img src="{{ message.image.url }}" alt="Message Image">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label for="id_image">Upload Image:</label>
+        <input type="file" id="id_image" name="image">
+        <button type="submit">Send</button>
+    </form>
+</div>
+</bodyl>
+{% endblock %}

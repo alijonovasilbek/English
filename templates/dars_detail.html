@@ -1,0 +1,470 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ dars.name }}
+{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#e0f8e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container1 {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #F5F5F5;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .video-container iframe, .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .comments-container, .additions-container {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 400px;
+            height: 99%;
+            background-color: #ffffff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .comments-container.active, .additions-container.active {
+            display: flex;
+        }
+        .comments h2, .additions h2 {
+            color: #555;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .comment, .addition {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .comment strong, .addition strong {
+            color: #333;
+            font-size: 18px;
+        }
+        .comment p, .addition p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .comment small, .addition small {
+            color: #999;
+            font-size: 14px;
+        }
+        .comment-form {
+            margin-top: 40px;
+            text-align: left;
+        }
+        .comment-form h3 {
+            color: #555;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .comment-form form {
+            display: flex;
+            flex-direction: column;
+        }
+        .comment-form textarea {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid #000000;
+            margin-bottom: 20px;
+        }
+        .comment-form button {
+            align-self: flex-start;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+        .comment-form button:hover {
+            background-color: #0056b3;
+        }
+        .forum-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .like-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .like-container div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .like-container i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .like-container small {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #777;
+        }
+        .fa-solid fa-comments, .fa-solid fa-plus {
+            margin: 10px;
+        }
+        .back-button {
+            align-self: flex-start;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color:  #0056b3;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .ba-button {
+            align-self: flex-start;
+            padding: 10px 20px;
+            font-size: 15px;
+            border: none;
+            border-radius: 10px;
+            background-color:  #0056b3;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .like-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+    </style>
+    <div class="main-content">
+        <div class="container1">
+            <div class="like-container">
+                <div>
+                    <i class="fa-regular fa-heart" id="like-btn"></i>
+                    <small class="num-of-likes" id="num">{{ dars.likes.count }}</small>
+                </div>
+                <div>
+                    <i class="fa-solid fa-plus" onclick="toggleAdditions()"></i>
+
+                     <small onclick="toggleAdditions()"><a href="#comments">Additions</a></small>
+                </div>
+                <div>
+                    <i class="fa-solid fa-comments" onclick="toggleComments()"></i>
+                    <small onclick="toggleComments()"><a href="#comments">Comment</a></small>
+
+                </div>
+                <div>
+                    <i class="fas fa-eye"></i>
+                    <small id="view-count">{{ dars.view_count }}</small>
+                </div>
+            </div>
+            <hr>
+           <h1>{{ dars.name }}</h1>
+<div class="video-container">
+    {% if dars.video_url %}
+        <iframe src="{{ dars.video_url }}" frameborder="0" allowfullscreen></iframe>
+    {% endif %}
+    {% if dars.video %}
+        <video id="protected-video" controls controlsList="nodownload" oncontextmenu="return false;">
+            <source src="{{ dars.video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {% else %}
+        <p>No video available</p>
+    {% endif %}
+</div>
+<p><strong>Number:</strong> {{ dars.number }}</p>
+<p><strong>Description:</strong> {{ dars.description }}</p>
+<p><strong>Text:</strong> {{ dars.text|safe }}</p>
+{% if dars.file %}
+    <p>
+        <a href="{{ dars.file.url }}">Download file</a>
+    </p>
+{% endif %}
+
+<style>
+    .video-container video {
+        width: 100%;
+        height: 100%;
+    }
+    .video-container video::-internal-media-controls-download-button {
+        display: none;
+    }
+    .video-container video::-webkit-media-controls-enclosure {
+        overflow: hidden;
+    }
+    .video-container video::-webkit-media-controls-panel {
+        width: calc(100% + 30px); /* Hide download button in Safari */
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var video = document.getElementById('protected-video');
+
+        // Отключение контекстного меню
+        video.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    });
+</script>
+
+    <div class="comments-container" id="commentsContainer">
+        <div class="comments">
+            <h2>Comments</h2>
+            {% if user.is_authenticated %}
+            <div class="comment-form">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div>
+                        <button type="submit">Add Comment</button>
+                         <button class="back-button" type="button" onclick="toggleComments()">⏮️Back</button>
+                    </div>
+
+                </form>
+            </div>
+            {% endif %}
+            {% for comment in comments %}
+                <div class="comment">
+                    <strong>{{ comment.user.username }}</strong>
+                    <p>{{ comment.content }}</p>
+                    <small>{{ comment.created_at }}</small>
+                    <button class="ba-button" onclick="toggleReplyForm('{{ comment.id }}')">Reply</button>
+                    <div id="replyForm{{ comment.id }}" style="display: none;">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="hidden" name="parent" value="{{ comment.id }}">
+                            <button class="ba-button" type="submit">Post Reply</button>
+                        </form>
+                    </div>
+                    {% for reply in comment.replies.all %}
+                        <div class="reply">
+                            <strong>{{ reply.user.username }}</strong>
+                            <p>{{ reply.content }}</p>
+                            <small>{{ reply.created_at }}</small>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="additions-container" id="additionsContainer">
+        <div class="additions">
+            <h2>Additions</h2>
+            {% if dars.additions %}
+                <div class="addition">
+                    <p>{{ dars.additions|safe }}</p>
+                </div>
+            {% else %}
+                <p>No additions available</p>
+            {% endif %}
+            <button class="back-button" type="button" onclick="toggleAdditions()">⏮️Back</button>
+        </div>
+    </div>
+
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        let btn = document.getElementById("like-btn");
+        let num_of_likes = document.getElementById("num");
+        let post_id = "{{ dars.id }}";
+
+        btn.addEventListener("click", likePost);
+
+        function likePost(e){
+            let url = "{% url 'like' %}";
+            const data = {id: post_id};
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data["already_liked"]) {
+                    btn.classList.remove("fa-solid");
+                    btn.classList.add("fa-regular");
+                } else {
+                    btn.classList.remove("fa-regular");
+                    btn.classList.add("fa-solid");
+                }
+                num_of_likes.innerHTML = data["num_of_likes"];
+            });
+        }
+
+        function toggleComments() {
+            var commentsContainer = document.getElementById('commentsContainer');
+            commentsContainer.classList.toggle('active');
+        }
+
+function toggleAdditions() {
+    var additionsContainer = document.getElementById('additionsContainer');
+    var additionsHeader = document.querySelector('.additions h2');
+    var additionsIcon = document.querySelector('.additions h2 i');
+
+    additionsContainer.classList.toggle('active');
+    if (additionsContainer.classList.contains('active')) {
+        additionsHeader.innerHTML = "Additions &#9650;"; // Triangle pointing up
+        additionsIcon.classList.add('fa-caret-up');
+        additionsIcon.classList.remove('fa-caret-down');
+    } else {
+        additionsHeader.innerHTML = "Additions &#9660;"; // Triangle pointing down
+        additionsIcon.classList.add('fa-caret-down');
+        additionsIcon.classList.remove('fa-caret-up');
+    }
+}
+
+        function toggleComments() {
+    var commentsContainer = document.getElementById('commentsContainer');
+    var commentsHeader = document.querySelector('.comments h2');
+    var commentsIcon = document.querySelector('.comments h2 i');
+
+    commentsContainer.classList.toggle('active');
+    if (commentsContainer.classList.contains('active')) {
+        commentsHeader.innerHTML = "Comments &#9650;"; // Triangle pointing up
+        commentsIcon.classList.add('fa-caret-up');
+        commentsIcon.classList.remove('fa-caret-down');
+    } else {
+        commentsHeader.innerHTML = "Comments &#9660;"; // Triangle pointing down
+        commentsIcon.classList.add('fa-caret-down');
+        commentsIcon.classList.remove('fa-caret-up');
+    }
+}
+
+
+        function toggleReplyForm(commentId) {
+            var form = document.getElementById('replyForm' + commentId);
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+        function incrementViewCount() {
+            var pk = "{{ dars.pk }}";  // Assuming dars is the context variable containing the Dars object
+            fetch("{% url 'increment_view_count' pk=dars.pk %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Handle success
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        incrementViewCount();
+
+    </script>
+{% endblock %}
+{% block footer %}
+  <footer class="text-center text-lg-start bg-light text-muted">
+  </footer>
+{% endblock %}

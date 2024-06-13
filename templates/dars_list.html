@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+ars List
+{% endblock %}
+
+
+    <h1>Dars List</h1>
+    <ul>
+        {% for dars in dars %}
+            <li><a href="{% url 'dars_detail' dars.pk %}">{{ dars.name }}</a></li>
+        {% endfor %}
+    </ul>
+

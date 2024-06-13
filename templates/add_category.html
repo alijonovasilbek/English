@@ -1,0 +1,21 @@
+<!-- add_category.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Add Category
+{% endblock %}
+
+{% block content %}
+    <div class="#">
+        <div class="card-header">
+            <h2>Add New Category</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Add Category</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

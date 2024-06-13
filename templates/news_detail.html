@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ new detail
+{% endblock %}
+{% block content %}
+    <style>
+        bodyt {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0f8e0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #343a40;
+        }
+
+        .content-containerk {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 20px 0;
+            font-size: 2.5em;
+            color: #495057;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .text-containerk {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            text-align: center;
+            display: block;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+
+    <bodyt>
+        <div class="content-containerk">
+            <h1>{{ news_item.name }}</h1>
+            {% if news_item.picture %}
+            <img src="{{ news_item.picture.url }}" alt="{{ news_item.name }}">
+            {% endif %}
+            <p>{{ news_item.description }}</p>
+            <p>{{ news_item.date }}</p>
+            <div>
+                {{ news_item.text|safe }}
+            </div>
+            <a href="{% url 'news_list' %}">Back</a>
+    </bodyt>
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

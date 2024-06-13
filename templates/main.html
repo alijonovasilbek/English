@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home - Video Courses{% endblock %}
+
+{% block content %}
+<style>
+    body{
+
+        background: url("{% static 'd.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+
+    }
+    .hero {
+        color: white;
+        text-align: center;
+        padding: 100px 0;
+    }
+    .hero-content h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+    .hero-content p {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+    .card {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        color: white;
+    }
+    .card:hover {
+        transform: translateY(-10px);
+    }
+    .card-img-top {
+        height: 240px;
+        object-fit: cover;
+    }
+    .card-body {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+
+
+
+        box-sizing: border-box;
+        overflow-y: auto;
+        max-height: 100%;
+    }
+    .card-title {
+        color: #fff;
+        font-size: 1.25rem;
+    }
+    .card-text {
+        color: #ddd;
+        margin-bottom: 15px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+        text-transform: uppercase;
+    }
+    .medium-developers {
+        text-align: center;
+        padding: 40px 0;
+    }
+
+    .medium-developers h2 {
+        color: #691919;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 800px;
+        font-size: 2.4rem;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+    }
+
+    .medium-developers p {
+        color: #000080;
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: 1.7rem;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+    }
+
+    .inline-icon {
+        width: 70px;
+        height: auto;
+        margin-left: 5px;
+        vertical-align: middle;
+    }
+
+    .card-text {
+        font-size: 1.6rem;
+        margin: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .card-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+        .card-img-top {
+            height: 200px;
+        }
+        .card-text {
+            font-size: 1.4rem;
+        }
+    }
+</style>
+
+<div class="hero" id="hero">
+    <div class="hero-content">
+        <h1 data-aos="fade-up">Sherlock's IELTS Mastery for Teens</h1>
+        <p data-aos="fade-up" data-aos-delay="300">Ace Your IELTS with Sherlock Holmes' Detective Methods!</p>
+        {% if user.is_authenticated%}
+
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg" data-aos="fade-up" data-aos-delay="600">Get Started</a>
+        {% endif %}
+    </div>
+</div>
+<div class="medium-developers">
+    <h2>
+        <img src="{% static 'i.png' %}" alt="Icon" class="inline-icon">
+        Why Sherlock Holmes?
+    </h2>
+    <img src="{% static 'o.png' %}" class="image" style="float: right; width: 400px; height: 700px; margin-bottom: 20px;">
+    <p>We chose Sherlock Holmes because he's the ultimate detective! Just like Sherlock uses his super-smart brain to solve mysteries, we want to help you use your brain to crack the IELTS exam.</p>
+</div>
+<div class="medium-developers">
+    <h2 style="margin-right: auto;">
+        <img src="{% static 'i1.png' %}" alt="Icon" class="inline-icon">
+        Who is Sherlock Holmes?
+    </h2>
+    <p>Sherlock Holmes is a famous fictional detective created by Sir Arthur Conan Doyle. He's known for his sharp mind, keen observation skills, and brilliant deductions. Sherlock lives in London and solves baffling crimes with his trusty friend, Dr. John Watson.</p>
+</div>
+<div class="medium-developers">
+    <h2>
+        <img src="{% static 'o1.png' %}" alt="Icon" class="inline-icon">
+        Why Sherlock for IELTS?
+    </h2>
+    <p>Sherlock's way of thinking is perfect for learning English! By following his methods, you'll learn to pay attention to details, understand tricky questions, and solve problems like a pro. Plus, it's way more fun than regular studying!</p>
+</div>
+
+<div class="content" id="why-we-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4 shadow-sm" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="{% static '21.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Listening: Sharpen your ears like Holmes</p>
+                        <p class="card-text">Reading: Detect hidden clues in texts</p>
+                        <p class="card-text">Speaking: Speak confidently like a detective</p>
+                        <p class="card-text">Writing: Craft perfect essays</p>
+                        <div class="icon">
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="{% static '22.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text">- Interactive Lessons</p>
+                        <p class="card-text">- Real-Life Scenarios</p>
+                        <p class="card-text">- Personalized Feedback</p>
+                        <p class="card-text">- Practice Tests</p>
+                        <div class="icon">
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-4 shadow-sm" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="{% static '23.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Create Your Personalized Learning Plan</p>
+                        <p class="card-text">-Choose Your Motivating Goal</p>
+                        <p class="card-text">-Get a Free Consultation</p>
+                        <p class="card-text">-Exclusive Access to Webinars with Expert Speakers on</p>
+                        <div class="icon">
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="{% static '24.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">How to Master IELTS Quickly</p>
+                        <p class="card-text">-Set a Goal That Inspires You</p>
+                        <p class="card-text">-Receive a Complimentary Consultation</p>
+                        <p class="card-text">-Personalized Tips and Strategies to Improve Your IELTS score</p>
+                        <div class="icon">
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

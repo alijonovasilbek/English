@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Admin uchun
+{% endblock %}
+
+{% block content %}
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1, ul, #room-list li, a, #create-room-btn {
+            animation: fadeIn 0.5s ease;
+        }
+
+        h1 {
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        li:hover {
+            background-color: #f0f0f0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        #create-room-btn {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        #create-room-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <h1>Chat Rooms</h1>
+    <ul id="room-list">
+        {% for room in rooms %}
+        <li><a href="{% url 'room_chat' room_id=room.id %}">{{ room.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% if user.is_superuser %}
+    <a href="{% url 'create_room' %}" id="create-room-btn">Create Room</a>
+{% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#room-list a').hover(function() {
+                $(this).css('color', '#0056b3');
+            }, function() {
+                $(this).css('color', '#007bff');
+            });
+
+            $('#create-room-btn').hover(function() {
+                $(this).css('background-color', '#0056b3');
+            }, function() {
+                $(this).css('background-color', '#007bff');
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Admin uchun
+{% endblock %}
+
+{% block content %}
+<h1>Dars List</h1>
+
+<style>
+    .button-container {
+        margin: 20px 0;
+    }
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+    }
+    .button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="button-container">
+    <a href="{% url 'register' %}" class="button">A'zo qo'shish</a>
+    <a href="{% url 'add_category' %}" class="button">Category qo'shish</a>
+    <a href="{% url 'add_dars' %}" class="button">Dars qoshish</a>
+</div>
+{% endblock %}

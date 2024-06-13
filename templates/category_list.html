@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="text-center">
+
+        <ul class="list-unstyled" data-aos="fadeIn">
+            {% for category in categories %}
+                <li class="mb-3">
+                    <a href="{% url 'category_detail' category.id %}" class="category-link" style="transition: color 0.3s ease, transform 0.3s ease; position: relative; display: inline-block;">
+                        <img src="{% static 'j.png' %}" alt="Category Icon" class="category-icon"> <!-- Icon -->
+                        <span class="category-name">{{ category.course_name }}</span> <!-- Category name -->
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<style>
+    /* Background Image */
+    body {
+        background-image: url("{% static 'mm1.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Add this line */
+    }
+
+    /* Title */
+    h1 {
+        font-size: 5em;
+        color: #fff; /* Change text color to white */
+        text-align: center;
+
+        animation: fadeInDown 1s ease-out, colorChange 3s infinite alternate; /* Add animation */
+    }
+             .span {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+
+            transition: color 0.3s;
+        }
+
+
+        .span:hover {
+            color: #0056b3;
+
+        }
+        .a{
+        color:red;
+        }
+
+    @keyframes colorChange {
+        from {
+            color: #fff; /* Initial color */
+        }
+        to {
+            color: #ed0e0e; /* Final color */
+        }
+    }
+
+    /* Category Links */
+    .category-link {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        font-size: 2.5em; /* Increase font size */
+        color: #fff; /* Change text color to white */
+        transition: color 0.3s ease, transform 0.3s ease;
+        text-decoration: none; /* Remove default underline */
+        font-weight: bold; /* Make text bold */
+        font-family: Arial, sans-serif; /* Change font family if needed */
+    }
+
+    .category-link:hover {
+        color: #f10f0f; /* Change color on hover */
+        transform: scale(1.1); /* Increase size on hover */
+    }
+
+    .category-icon {
+        display: block;
+        width: 400px; /* Adjust the width of the icon */
+        height: auto; /* Let the height adjust automatically */
+       ; /* Center the icon and add space below */
+    }
+
+
+        .category-name {
+    position: absolute; /* Change position to absolute */
+    top: 50%; /* Move to the vertical center */
+    left: 50%; /* Move to the horizontal center */
+    transform: translate(-50%, -50%); /* Center the element */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Rounded corners */
+    color:#8B0000;
+
+}
+
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        animation: fadeIn 1.5s ease-out;
+
+    }
+
+    li {
+        margin: 4px 0;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

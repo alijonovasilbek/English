@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Dars</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #ffffff;
+            color: #000000;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #ffffff 3px solid;
+        }
+        header a {
+            color: #000000;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: right;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #cccccc;
+            font-weight: bold;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url("{% static 'test3.jpg' %}") no-repeat center center/cover;
+            text-align: center;
+            color: #380a0a;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        #showcase p {
+            font-size: 20px;
+        }
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container form input,
+        .form-container form textarea,
+        .form-container form button {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container form button {
+            background: #50b3a2;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container form button:hover {
+            background: #e8491d;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Add Dars</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="current"><a href="#">Add Dars</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="showcase">
+        <div class="container">
+            <h1>Welcome to the Add Dars Page</h1>
+            <p>Fill out the form below to add a new Dars.</p>
+        </div>
+    </section>
+    <div class="container">
+        <div class="form-container">
+            <h1>Add Dars</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+
+        <p>&copy; 2024 Add Dars. All rights reserved.</p>
+    </footer>
+</body>
+</html>

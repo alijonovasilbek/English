@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+news
+{% endblock %}
+
+{% block content %}
+    <style>
+        bodyu {
+            font-family: 'Roboto', sans-serif;
+            background: url("{% static 'oxirgi3.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container5 {
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .news-card {
+            background-color: #fff;
+            background: url("{% static 'e4.jpg' %}") no-repeat center center;
+            background-size: cover;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .news-content {
+            padding: 30px;
+        }
+
+        .news-content h2 {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: 3rem;
+        }
+
+        .news-content p {
+            color: #ffffff;
+        }
+
+        .news-footer {
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            background: url("{% static '2.png' %}") no-repeat center center;
+            background-size: cover;
+            border-radius: 0 0 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .news-footer a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.8rem;
+            transition: color 0.3s;
+        }
+
+        .news-footer p {
+            color: #ffffff;
+            font-size: 1.5rem;
+        }
+
+        .news-footer a:hover {
+            color: #0056b3;
+        }
+    </style>
+<bodyu>
+    <div class="container5">
+        {% for new in news %}
+        <div class="news-card">
+            <div class="news-content">
+                <h2>{{ new.name }}</h2>
+                <p>{{ new.description }}</p>
+            </div>
+            <div class="news-footer">
+                <p>{{ new.date }}</p>
+                <div>
+                    <i class="fas fa-eye fa-2x" style="color: yellow;"></i>
+                    <a href="{% url 'news_detail' pk=new.pk %}">See...</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </bodyu>
+{% endblock %}
